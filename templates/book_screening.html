@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Seats</title>
+</head>
+<body>
+
+<h2>Choose Your Seats</h2>
+
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form action="{{ url_for('book_screening', screening_id=screening_id) }}" method="post">
+    {% for seat in seats %}
+        <input type="checkbox" name="seats" value="{{ seat.id }}">Seat {{ seat.seat_number }} ({{ seat.seat_type }})<br>
+    {% endfor %}
+    <input type="submit" value="Book Now">
+</form>
+
+</body>
+</html>

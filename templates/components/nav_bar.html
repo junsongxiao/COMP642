@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark flex-shrink-0 d-flex justify-content-between">
+
+  <a class="navbar-brand fs-2 mx-4" href="{{ url_for('dashboard') }}">
+    <img src="{{ url_for('static', filename='images/film.png') }}" alt="Cinema Logo" height="60" />
+    <span style="font-size:1.1em;margin-left:30px;">Lincoln Cinema Ticket Booking System</span>
+  </a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    {# If user is logged in #}
+    {% if session["username"] %}
+    <ul class="navbar-nav ms-auto">
+ 
+      <form action="{{ url_for('logout') }}" method="post" class="m-auto mx-4"
+        style="width: fit-content; height:fit-content">
+        <button type="submit" class="btn btn-light">Logout</button>
+      </form>
+    </ul>
+    {# If user is not logged in #}
+
+    {% else %}
+    <ul class="navbar-nav">
+
+      <li class="nav-item" class="ms-auto mx-5">
+        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+      </li>
+      <li class="nav-item" class="ms-auto mx-5">
+        <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+      </li>
+    </ul>
+
+  </div>
+
+   {% endif %}
+</nav>

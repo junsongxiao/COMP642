@@ -1,0 +1,62 @@
+{% extends "dashboard.html" %}
+{% block header %}
+Movie Listing
+{% endblock %}
+{% block nested_content %}
+
+<h2>Movies Listing</h2>
+      {%include 'components/back_button.html'%}
+    <!-- Search Form -->
+    <form method="GET" action="{{ url_for('search_movies_users') }}">
+        <label for="keywords">Keywords:</label>
+        <input type="text" id="keywords" name="keywords" required>
+        <button type="submit">Search</button>
+    </form>
+
+<table class="table table-striped table-hover">
+
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Duration (mins)</th>
+            <th>Language</th>
+            <th>Release Date</th>
+            <th>Director</th>
+            <th>Country</th>
+            <th>Genre</th>
+            <th>Screening</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movie in movies %}
+        <tr>
+            <td>{{ movie.title }}</td>
+            <td style="max-width:400px;">{{ movie.description }}</td>
+            <td>{{ movie.duration }}</td>
+            <td>{{ movie.language }}</td>
+            <td>{{ movie.releaseDate.strftime('%d/%m/%Y')}}</td>
+            <td>{{movie.director}}</td>
+            <td>{{ movie.country }}</td>
+            <td>{{ movie.genre }}</td>
+            <td style="min-width:150px">    
+                
+
+    
+               
+                <a href="{{url_for('movie_screenings',movie_id=movie.movie_id)}}"><button class="btn btn-dark">View Screening</button></a>
+                
+                {% if session['Type']=='Admin' %}
+                
+                <a href="{{ url_for('add_screening_for_movie', movie_id=movie.movie_id) }}"><button class="btn btn-dark">Add Screening </button></a>
+                <form action="{{ url_for('cancel_movie', movie_id=movie.movie_id) }}" method="post">
+                    <a href="{{ url_for('cancel_movie', movie_id=movie.movie_id) }}"><button class="btn btn-danger">Cancel Movie </button></a>
+                </form>
+                {% endif %}
+            
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

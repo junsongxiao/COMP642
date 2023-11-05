@@ -1,0 +1,141 @@
+{% extends 'index.html' %}
+
+<!-- start content block  -->
+{% block content %}
+{% if session.get('logged_in') %}
+<div class="navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li class="active">
+            <button class="navbar-toggle" id="menu-toggle-2" style="border:none;">
+                <i class="fas fa-th-large fa-2x " style="color:#292829"></i>
+            </button>
+        </li>
+    </ul>
+</div>
+
+
+<!-- Sidebar navigation items  -->
+<div id="wrapper">
+
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+            <li>
+                {# Show dashboard for all users #}
+                <a href="{{ url_for('dashboard') }}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <i class="fas fa-tachometer-alt fa-stack-1x "></i>
+                    </span>
+                    Dashboard
+                </a>
+            </li>
+          
+            {% if session['Type'] == 'Admin' %}
+            <li>
+                <a href="{{ url_for('add_movie') }}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <i class="fas fa-film"></i>
+                    </span>
+                    Add Movie
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('movies') }}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <!-- <i class="fas fa-bookmark fa-stack-1x "></i> -->
+                        <i class="fas fa-film"></i>
+                    </span>
+                    View/Cancel Movie
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('add_screening') }}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <i class="fas fa-theater-masks"></i>
+                    </span>
+                    Add Screening
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('screenings') }}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <i class="fas fa-theater-masks"></i>
+                    </span>
+                    View/Cancel Screening
+                </a>
+            </li>
+            {% elif session['Type'] == 'Customer' %}
+            <li>
+                <a href="{{ url_for('movies') }}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <i class="fas fa-film"></i>
+                    </span>
+                    View Movies & Make Bookings
+                </a>
+            </li>
+            <li>
+                <a href="{{url_for('screenings')}}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <!-- <i class="fa-solid fa-film fa-stack-1x "></i> -->
+                        
+                        <i class="fas fa-ticket-alt"></i>
+                    </span>
+                    View Screenings
+                </a>
+            </li>
+            <li>
+                <a href="{{url_for('my_bookings')}}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <i class="fas fa-clock"></i>
+                    </span>
+                    My Bookings
+                </a>
+            </li>
+
+            {% elif session['Type'] == 'FrontDeskStaff' %}
+            <li>
+                <a href="{{ url_for('screenings') }}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <i class="fas fa-film"></i>
+                    </span>
+                    Make Bookings
+                </a>
+            </li>
+            <li>
+                <a href="{{url_for('view_bookings')}}">
+                    <span class="fa-stack fa-lg pull-left">
+                        <!-- <i class="fa-solid fa-film fa-stack-1x "></i> -->
+                        
+                        <i class="fas fa-ticket-alt"></i>
+                    </span>
+                    View/Cancel Bookings
+                </a>
+            </li>
+            {% endif %}
+         
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- main content area in "function block" that is rendered on each individual html template： this will need to be unified-->
+    <!-- <div class="nested_content"> -->
+        <div class="container">
+        <h1 class="my-3">{% block header %}Dashboard{%endblock%}</h1>
+        
+        {% block nested_content %}
+        <!-- default content only shows on dashboard page  -->
+        <h2>Welcome back, {{session['username']}}! </h2>
+        <!-- Display any flashed messages -->
+        
+        <p>This is your dashboard, please use links below or in the sidebar to access different functionality of the
+            system:</p>
+
+
+        {% endblock %}
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+<!-- JAVASCRIPT dependencies: this also has been included in the index.html -->

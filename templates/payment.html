@@ -1,0 +1,70 @@
+{% extends "dashboard.html" %}
+{% block header %}
+Booking Payment
+{% endblock %}
+{% block nested_content %}
+<div class="container">
+    {% include 'components/back_button.html' %}
+
+<h2>Make a payment for booked movie "{{ booking.movie_title }}"</h2>
+
+<form  method="post" action="{{ url_for('apply_coupon', booking_id=booking_id) }}">
+    <label for="coupon">Have a coupon?</label>
+    <input type="text" name="coupon" placeholder="Coupon code">
+    <input class="btn btn-dark" type="submit" value="Apply Coupon">
+</form>
+
+
+<form style="margin:20px 0px;"  method="post" action="{{ url_for('make_payment', booking_id=booking_id) }}">
+    <label for="payment_method">Payment Method:</label>
+    <select name="payment_method">
+        <option value="credit_card">Credit Card</option>
+        <option value="debit_card">Debit Card</option>
+        <option value="cash">Cash</option>
+    </select>
+
+    <label for="amount">Amount to Pay:</label>
+    <input type="number" id="amount" name="amount" value="{{ session.get('amount_to_pay', total_price) }}" required>
+
+    <input style="margin-top:20px;" class="btn btn-dark" type="submit" value="Make Payment">
+</form>
+
+    <h2>Booking Details</h2>
+    <table class="table table-striped">
+        <thead>
+            <th>Booking Date:</th>
+            <th>User Name:</th>
+            <th>Movie Title:</th>
+            <th>Screening Start Time:</th>
+            <th>Hall Name:</th>
+            <th>Booked Seats</th>
+            <th>Fare</th>
+            <th>Booking Status:</th>
+            
+        </thead>
+        <tbody>     
+            <td>{{ booking.booking_date }}</td>
+            <td> {{ booking.user_name }}</td>
+            <td> {{ booking.movie_title }}</td>
+            <td> {{ booking.screening_start_time }}</td>
+            <td>{{ booking.hall_name }}</td>
+            <td>{% for seat in booking.seats %}
+                {{ seat }}
+                {% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{total_price}}</td>
+            <td>{{booking.booking_status}}</td>
+          
+  
+    </tbody>    
+</table>
+</div>
+
+
+</div>
+    
+
+
+
+{% endblock %}

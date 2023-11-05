@@ -1,0 +1,16 @@
+<!-- Flash messages -->
+<div class="flash_container alertmsg">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="container d-flex flex-fill justify-content-center align-items-center alert alert-info alert-dismissible fade show"
+        role="alert">
+        <span class="alert-msg">{{ message }}</span>
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float:right;">
+            <span class="x_close" aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>

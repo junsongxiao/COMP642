@@ -1,0 +1,72 @@
+{% extends "dashboard.html" %}
+{% block header %}
+View All Bookings
+{% endblock %}
+{% block nested_content %}
+<div class="container">
+    <h2>View All Bookings</h2>
+    {% include 'components/back_button.html' %}
+    {% if bookings %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Movie Title</th>
+                <th>Screening Date</th>
+                <th>Screening Time</th>
+                <th>Hall</th>
+                <th>Seat(s)</th>
+                <th>Total Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.booking_id }}</td>
+                <td>{{ booking.user_name }}</td>
+                <td>{{ booking.movie_title }}</td>
+                <td>{{ booking.screening_date }}</td>
+                <td>{{ booking.start_time }}</td>
+                <td>{{ booking.hall_name }}</td>
+                <td>{% for seat in booking.seats %}
+                    {{ seat }}
+                    {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>${{ total_price.get(booking.booking_id, 0) }}</td>
+                <td>{{ booking.booking_status }}</td>
+                <td>
+                    
+                    <a href="{{ url_for('booking_details', booking_id=booking.booking_id )}}" class="btn btn-dark btn-sm">View</a>
+                    {% if booking.booking_status == 'Pending' %}
+                    <a href="{{ url_for('booking_payment', booking_id=booking.booking_id ) }}" class="btn btn-dark btn-sm">Pay</a>                    
+                    {% else %}
+                    <a href="#" class="btn btn-dark btn-sm disabled" tabindex="-1" aria-disabled="true">Pay</a>
+                    {% endif %}
+                    {% if booking.screening_date > today and booking.booking_status != 'Canceled'%}
+                    <a href="{{ url_for('cancel_booking', booking_id=booking.booking_id )}}" class="btn btn-dark btn-sm">Cancel</a>
+                    {% else %}                    
+                    <a href="#" class="btn btn-dark btn-sm disabled" tabindex="-1" aria-disabled="true">Cancel</a>
+                    {% endif %}
+                    {% if booking.booking_status == 'Canceled' and session['Type']=='FrontDeskStaff' %}
+                    <a href="{{ url_for('refund_booking', booking_id=booking.booking_id )}}" class="btn btn-dark btn-sm">Refund</a>
+                    {% else %}                    
+                    <a href="#" class="btn btn-dark btn-sm disabled" tabindex="-1" aria-disabled="true">Refund</a>
+                    {% endif %}
+
+                    
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No bookings found.</p>
+    {% endif %}
+</div>
+{% endblock %}

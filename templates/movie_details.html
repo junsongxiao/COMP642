@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Details</title>
+</head>
+<body>
+
+<h2>Movie Details for "{{ movie.title }}"</h2>
+
+<table border="1">
+    <tbody>
+        <tr>
+            <th>Title</th>
+            <td>{{ movie.title }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ movie.description }}</td>
+        </tr>
+        <tr>
+            <th>Duration (mins)</th>
+            <td>{{ movie.duration_mins }}</td>
+        </tr>
+        <tr>
+            <th>Language</th>
+            <td>{{ movie.language }}</td>
+        </tr>
+        <tr>
+            <th>Release Date</th>
+            <td>{{ movie.release_date }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ movie.country }}</td>
+        </tr>
+        <tr>
+            <th>Genre</th>
+            <td>{{ movie.genre }}</td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

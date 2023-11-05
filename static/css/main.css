@@ -1,0 +1,109 @@
+.auth-form.input.form-control {
+  max-width: 250px;
+  width: 100%;
+}
+
+.card {
+  max-width: 550px;
+}
+
+.auth-btn {
+  width: 100%;
+}
+
+.nav-link {
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: large;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.nav-link:hover {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.navbar-nav {
+  font-size: 20px;
+}
+
+form {
+  max-width: 550px;
+}
+
+td, th {
+  padding-inline: 10px;
+}
+
+/* Change the cursor if a button is disabled */
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+/* Seating styles  */
+.seats-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left:250px;
+}
+
+.seat-row {
+  display: flex;
+}
+
+.seat {
+  width: 50px;
+  height: 50px;
+  margin: 15px;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.available {
+  background-color: green;
+}
+
+.booked {
+  background-color: red;
+  cursor: not-allowed;
+}
+
+.selected {
+  background-color: blue;
+}
+.screen_position{
+  width:600px;
+  height:30px;
+  background-color:grey;
+  text-align: center;
+  margin-bottom:30px;
+  margin-left:100px;
+}
+.legent{
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+#legend_booked:before{
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  margin-right: 10px;
+}
+#legend_unbooked:before{
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  margin-right: 10px;
+}
+.seat_tick{
+  width:20px;
+  height:20px;
+}

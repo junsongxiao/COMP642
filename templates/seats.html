@@ -1,0 +1,77 @@
+{% extends "dashboard.html" %}
+{% block header %}
+Book Seats for {{ screening.movie_title }}
+{% endblock %}
+{% block nested_content %}
+<div class="container">
+
+
+    {% include 'components/back_button.html' %}
+
+    <form method="post" action="{{ url_for('make_booking', hall_id=hall_id, screening_id=screening_id) }}">
+        {% if session['Type'] == 'FrontDeskStaff' %}
+        <h2>Enter customer details:</h2>
+        <p class="text-danger">* Required</p>
+
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username*" required>
+
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password*" required>
+
+        <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+            placeholder="Confirm Password*" required>
+
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name*" required>
+
+        <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone number*"
+            required>
+
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email*" required>
+
+        <input type="text" class="form-control" id="address" name="address" placeholder="Address*" required>
+
+        {% endif %}
+        <!-- display seats  -->
+        
+        <h2>Select seats and make booking:</h2>
+        <div class="screen_position">
+            <p>Screen</p>
+        </div>
+
+        <div class="legend">
+            <div id="legend_booked">Booked</div>
+            <div id="legend_unbooked">Avilable</div>
+        </div>
+
+        <div class="seats-layout">
+            <div class="seat-row">
+                {% for seat in all_seats %}
+                <div class="seat {% if seat.ID in booked_seats %}booked{% else %}available{% endif %}"
+                    data-seat-id="{{ seat.ID }}">
+
+                    <input class="seat_tick" type="checkbox" name="selected_seats" value="{{ seat.ID }}" {% if seat.ID
+                        in booked_seats %}disabled{% endif %}>
+                    {{ seat.SeatColumn }}{{ seat.SeatNumber }}
+                </div>
+                {% if loop.index % 10 == 0 %}
+            </div>
+            {% if not loop.last %}
+            <div class="seat-row">
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+        <input type="hidden" name="movie_id" value="{{ screening.movie_id }}">
+
+        <input type="hidden" name="hall_id" value="{{ screening.hall_id }}">
+
+        <input type="submit" class="btn btn-primary " value="Make Booking">
+
+    </form>
+
+
+</div>
+{% endblock %}

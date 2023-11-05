@@ -1,0 +1,40 @@
+{% extends "dashboard.html" %}
+
+{% block header %}
+Add A Movie
+{% endblock %}
+
+{% block nested_content %}
+<h2>Add Movie</h2>
+<form action="{{ url_for('add_movie') }}" method="post">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" name="title" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea name="description" required class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="durationMins">Duration (Minutes):</label>
+        <input type="number" name="durationMins" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="language">Language:</label>
+        <input type="text" name="language" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="releaseDate">Release Date:</label>
+        <input type="date" name="releaseDate" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="country">Country:</label>
+        <input type="text" name="country" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="genre">Genre:</label>
+        <input type="text" name="genre" required class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Movie</button>
+</form>
+{% endblock %}

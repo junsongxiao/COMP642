@@ -1,0 +1,46 @@
+{% extends "dashboard.html" %}
+{% block header %}
+Add Screening
+{% endblock %}
+{% block nested_content %}
+<h2>Add Screening</h2>
+{% include 'components/back_button.html' %}
+
+<form action="{{ url_for('add_screening_for_movie', movie_id=movie_id) if movie_title else url_for('add_screening') }}" method="post">
+    <div class="form-group">
+        <label for="movie_id">Movie:</label>
+        {% if movie_title %}
+            <input type="text" name="movie_title" value="{{ movie_title }}" readonly class="form-control">
+            <input type="hidden" name="movie_id" value="{{ movie_id }}">
+        {% else %}
+            <select name="movie_id" required class="form-control">
+                {% for movie in movies %}
+                    <option value="{{ movie.movie_id }}">{{ movie.title }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="screeningDate">Screening Date:</label>
+        <input type="date" name="screeningDate" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="startTime">Start Time:</label>
+        <input type="time" name="startTime" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="endTime">End Time:</label>
+        <input type="time" name="endTime" required class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="hall_id">Cinema Hall:</label>
+        <select name="hall_id"  required class="form-control">
+           
+            {% for hall in halls %}
+            <option value="{{ hall.ID }}" {{ 'selected' if loop.first else '' }}>{{ hall.Name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Screening</button>
+</form>
+{% endblock %}

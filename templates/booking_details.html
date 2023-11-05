@@ -1,0 +1,40 @@
+{% extends "dashboard.html" %}
+{% block header %}
+Booking Details
+{% endblock %}
+{% block nested_content %}
+<div class="container">
+
+    
+    {% include 'components/back_button.html' %}
+    <table class="table table-striped">
+        <thead>
+            <th>Booking Date:</th>
+            <th>Movie Title: </th>
+            <th>Screening Start Time:</th>
+            <th>Screening End Time:</th>
+            <th>Hall Name:</th>
+            <th>Booked Seat(s):</th>
+            <th>Booking Status:</th>
+        </thead>
+        <tbody>
+            <td> {{ booking.booking_date }}</td>
+            <td>{{ booking.movie_title }}</td>
+            <td> {{ booking.screening_start_time }}</td>
+            <td>{{ booking.screening_end_time }}</td>
+            <td>{{ booking.hall_name }}</td>
+            <td>{% for seat in booking.seats %}
+                {{ seat }}
+                {% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{booking.booking_status}}</td>
+
+
+
+            </ul>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

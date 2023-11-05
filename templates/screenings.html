@@ -1,0 +1,48 @@
+{% extends "dashboard.html" %}
+{% block header %}
+Screening List
+{% endblock %}
+{% block nested_content %}
+<h2>Screenings</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Movie</th>
+            <th>Hall</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for screening in screenings %}
+        <tr>
+            <td>{{ screening.screeningDate }}</td>
+            <td>{{ screening.startTime }}</td>
+            <td>{{ screening.endTime }}</td>
+            <td>{{ screening.movie_title }}</td>
+            <td>{{ screening.hall_name }}</td>
+            <td>
+                
+                    {% if session['Type'] in ['Customer','FrontDeskStaff'] %}
+                        {% if screening.screeningDate > today %}
+                        <a href="{{url_for('display_seats',hall_id=screening.hall_id, screening_id=screening.screening_id)}}"><button class="btn btn-dark">Select Seats</button></a>
+                        {% else %}
+                        <a href="#" class="btn btn-dark btn-sm disabled" tabindex="-1" aria-disabled="true">Select Seats</a>
+                        {% endif %}
+                    {% elif session['Type']=='Admin' %}        
+                    <form action="{{ url_for('delete_screening', screening_id=screening.screening_id) }}" method="post">         
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                        
+                    {% endif %}
+                    
+
+                
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
